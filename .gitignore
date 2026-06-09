@@ -6,3 +6,6 @@ settings.json
 .DS_Store
 coolnames.txt
 work.txt
+
+# Ignore python test files
+testing-only.py
