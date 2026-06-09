@@ -8,4 +8,4 @@ coolnames.txt
 work.txt
 
 # Ignore python test files
-testing-only.py
+test-only.py
