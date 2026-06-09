@@ -1,2 +1,8 @@
+# Ignore Visual Studio Code settings
 .vscode/
 settings.json
+
+# Ignore other code-unrelated files
+.DS_Store
+coolnames.txt
+work.txt
