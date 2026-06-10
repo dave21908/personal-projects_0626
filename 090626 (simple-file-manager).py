@@ -14,7 +14,7 @@ def validate(f_name, must_exist=True): # Validating the file name based on speci
       elif not must_exist and os.path.exists(f_name):
          print(f"\nThe file '{f_name}' already exists.")
          return False
-      elif not os.path.isfile(f_name):
+      elif must_exist and not os.path.isfile(f_name):
          print(f"\n'{f_name}' is not a file.")
          return False
       elif must_exist and not os.access(f_name, os.R_OK):
@@ -51,12 +51,9 @@ def writing(f_name, new): # Writing content to a file
       print(f"\nSuccessfully wrote '{new}' to {f_name}!")
 
 def creating(f_name): # Creating a new file
-   if not validate(f_name, must_exist=False):
-      return
-   else:
-      file = open(f_name, "x")
-      print(f"\n{f_name} created successfully!")
-      file.close()
+   if validate(f_name, must_exist=False):
+      with open(f_name, "x") as file:
+         pass
 
 def deleting(f_name): # Deleting a file
    if not validate(f_name, must_exist=True):
@@ -76,6 +73,10 @@ def renaming(old_name, new_name): # Renaming a file
       os.rename(old_name, new_name)
       print(f"\nSuccessfully renamed it to {new_name}!")
 
+def quiting(): # Quitting the program
+   print("\nThank you for using the file manager. Goodbye!")
+   exit()
+
 print(f">=<>=<>=<>=< FILE MANAGER <=<>=<>=<>=<")
 COMMANDS = {
    ("r", "read", "1"): reading,
@@ -84,36 +85,41 @@ COMMANDS = {
    ("x", "c", "create", "4"): creating,
    ("d", "delete", "5"): deleting,
    ("n", "rename", "6"): renaming,
-   ("q", "quit", "7"): exit()
+   ("q", "quit", "7"): quiting
 }
 
 while True:
    print(f"\nWhat would you like to do?\n1. Read the file [r]\n2. Add something in the file [a]\n3. Write over the file [w]\n4. Create a new file [x]\n5. Delete a file [d]\n6. Rename a file [n]\n7. Quit [q]\n")
    select = input(">> ").lower()
 
+   command_found = False
    for keys, action in COMMANDS.items(): # Checking if the user's input matches with the command keys
       if select in keys:
-         if action == reading or action == deleting:
+         command_found = True
+         if action == reading:
             f_name = input("\nType the file name:\n>> ")
             action(f_name)
          elif action == appending or action == writing:
             f_name = input("\nType the file name:\n>> ")
             new = input("Type the content you want to add/write:\n>> ")
             action(f_name, new)
-         elif action == creating:
+         elif action == creating or action == deleting:
             f_name = input("\nType the file name:\n>> ")
             action(f_name)
          elif action == renaming:
             old_name = input("\nType the current file name:\n>> ")
             new_name = input("Type the new file name:\n>> ")
             action(old_name, new_name)
-         else:
+         elif action == quiting:
             action()
+         finish = input("\nPress enter to continue...")
          break
-      elif not select.strip():
-         print(f"\nNothing to select. Try using the available commands!")
+   
+   if not command_found:
+      if not select.strip():
+         print("\nNothing to select. Try using the available commands!")
       else:
-         print(f"\nInvalid input. Try using the available commands!")
+         print("\nInvalid input. Try using the available commands!")
 
 """
 (Reflection 09/06/26) What went wrong during the process?
