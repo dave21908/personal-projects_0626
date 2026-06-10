@@ -1,7 +1,6 @@
 import random
-import time
 
-def check_answer(guess, result): # Checking if the guesses is equal to the results or not
+def check_answer(guess, result): # Checking if the user's answer is correct or not
    if guess == result:
       print(f"\nCorrect!")
       return True
@@ -10,15 +9,14 @@ def check_answer(guess, result): # Checking if the guesses is equal to the resul
       return False
 
 print(f">=<>=<>=<>=< OPERATION GAME >=<>=<>=<>=<")
-time.sleep(2)
 game_start = input("Type 'start' to play the game!\n>> ").lower()
-time.sleep(2)
 
 if game_start != "start":
    print(f"Understandable, bye!")
    exit()
 
 else:
+   # Initializing variables and difficulties settings
    score = 0
    correct = 0
    difficulties = {
@@ -29,21 +27,18 @@ else:
 
    while True:
       diff_select = input("\nSelect difficulties: Easy (7q) / Normal (10q) / Hard (15q):\n>> ").lower()
-      time.sleep(1)
 
-      # Difficulties
       settings = difficulties.get(diff_select)
       if settings is None: # Checking if the user's input matches with difficulties key
          print(f"\nPlease type based on three difficulties, it could be either typos or just jumbled words.")
-         time.sleep(1)
          continue
-      max_q, low, high = settings
+      max_q, low, high = settings # Unpacking the settings into variables
       
-      for i in range(1, max_q + 1):
+      for i in range(1, max_q + 1): # Looping through the questions
          num = random.randint(low, high)
          num2 = random.randint(low, high)
 
-         # Operations
+         # Operation logic and ensuring the results are not negative or decimal numbers
          op = random.choice(["+", "-", "*", "/"])
          if op == "+":
             result = num + num2
@@ -60,14 +55,12 @@ else:
                num = num2 * random.randint(1,10) # Ensuring the division results in an integer
             result = num // num2
 
-         time.sleep(1)
          print(f"\nScore: {score} | Question {i}")
          print(f"{num} {op} {num2} = ?")
          guess = input(">> ")
 
          if guess.lower() in ["l", "leave"]:
             print(f"Leaving to menu...")
-            time.sleep(2)
             break
          try:
             guess_num = int(guess)
@@ -78,14 +71,11 @@ else:
             print(f"\nInvalid character, please answer using numbers!")
       
       print(f"\n{max_q} questions completed!\n\nTotal score: {score}\nCorrect guesses: {correct}\nIncorrect guesses: {max_q - correct}")
-      time.sleep(3)
       replay = input("\nContinue playing? (y/n)\n>> ").lower()
 
       if replay not in ["y", "yes"]:
          print(f"Thank you for playing!")
-         time.sleep(1)
          print(f"Exiting the game...")
-         time.sleep(2)
          exit()
       else:
          score = 0
@@ -93,10 +83,11 @@ else:
          continue
 
 """
-What went wrong during the process?
+(Reflection 08/06/26) What went wrong during the process?
 -  Missplaced function (placing `check_answer()` inside of loop)
--  Putting two random generated numbers outside the `for` loop, this makes numbers never changes each question
--  
--  
--  Unreadable
+-  Putting two random generated numbers outside the `for` loop, this makes numbers never change and become repetitive
+-  Inconsistent variable naming (for example: `guess_num` and `guess`)
+-  Lack of input validation for difficulty selection
+-  Incorrect handling of division operation, leading to nonsensical fractions and decimal numbers
+-  Mostly unreadable
 """
