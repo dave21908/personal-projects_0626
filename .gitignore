@@ -9,3 +9,6 @@ work.txt
 
 # Ignore python test files
 test-only.py
+
+# Ignore .gitignore itself
+.gitignore
