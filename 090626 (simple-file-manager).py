@@ -123,7 +123,9 @@ while True:
 
 """
 (Reflection 09/06/26) What went wrong during the process?
--  Forgot to switch `
+-  Forgot to modify the functions that handle the files themselves
 -  Error in handling file (such as trying to read a non-existent file, or trying to create a file that already exists)
--  
+-  Repeated validation patterns for each file-handling functions
+-  Unnecessary `f-strings` placement
+-  Almost unreadable
 """

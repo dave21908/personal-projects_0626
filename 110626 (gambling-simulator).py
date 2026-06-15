@@ -1,6 +1,7 @@
-import random, time
+import random
 
 def gambling(money, bet, bonus_used, multiplier, chance):
+   # Resolve a single gamble round and handle the emergency bonus condition
    if money == 0:
       if bonus_used:
          print("\nSorry, son, but you've already received your bonus. You can't gamble anymore.")
@@ -8,9 +9,10 @@ def gambling(money, bet, bonus_used, multiplier, chance):
          exit()
       print(f"\nGoodness, son, you've run out of money. Here's a $100 bonus for ya. Carry on, son.")
       money += 100
-      bonus_used = True
+      bonus_used = True # Set to true one-time only, so it will check if the bonus has been used
    
    else:
+      # Winning condition: chance under threshold gives a payout
       if chance <= 0.5:
          earn = round((bet * random.randint(1,5)) * multiplier)
          money += earn
@@ -39,7 +41,8 @@ else:
       "3": {"name": "Lucky Charm", "price": 100, "effect": "chance"},
       "4": {"name": "Leave Shop", "price": 0, "effect": "exit"}
    }
-   while True:
+   
+   while True: # Main loop for choosing actions until the player leaves
       chance = random.random() - luck_boost
       print(f"\n=-=[ 💰 ${money}  |  🎟 {pulls} pulls ]=-=")
       action = input("Select your action:\n1) Take a gamble\n2) Go to Shop\n3) Leave\n>> ")
@@ -56,6 +59,7 @@ else:
                print("\nYou're overbetting your money, son. Try lowering your stake to something more reasonable.")
                continue
             else:
+               # Deduct the bet and consume one pull before resolving the gamble
                money -= bet
                total_bets += 1
                pulls -= 1
@@ -78,6 +82,7 @@ else:
             elif money < choice["price"]:
                print("Sorry, son, you don't have enough money to buy this.")
             else:
+               # Apply the purchased item effect to the player's resources
                if choice["effect"] == "pulls":
                   pulls += 5
                   print(f"\n(Add +5 more pulls)\nYour pulls: {pulls}")
@@ -102,39 +107,11 @@ else:
    exit()
    
 """
-GAME START
-   Importing libraries
-   Defining the gambling function()
-      If the player has no money, give them a $100 bonus (one time only)
-         If the player has no money and has already received the bonus, print a message that they can't gamble anymore
-         GAME END
-      Else if the bet is not a digit, print an error message
-      Else if the bet is greater than the player's money, print an error message
-      Else, deduct the bet from the player's money
-         Generate a random chance for winning
-         If the chance is greater than 0.5, the player wins
-            Deduct one pull from the player's pulls
-            Calculate the earnings and add it to the player's money
-            If the player has no pulls left, print a message
-            Else, print a congratulatory message with the player's current money
-         Else, print a message that the player lost and show their current money
-   Printing the game title
-   Initializing game variables
-   Asking the player if they want to start gambling
-   If the player doesn't want to start, exit the game
-   If the player wants to start, enter the game loop
-      Generate a random chance for winning
-      Ask the player to select an action (gamble, shop, or leave)
-      If the player selects gamble:
-         Ask the player to place a bet
-         Call the gambling function with the player's money and bet
-      Else if the player selects shop:
-         Display the shop items and their prices
-         Ask the player to select an item to purchase
-         If the player has enough money, deduct the cost and provide the item
-         Else, print a message that the player doesn't have enough money
-      Else if the player selects leave:
-         Exit the game loop
-      Else, print an error message for invalid action
-GAME END
+(Reflection 11-15/06/26) What went wrong during the process?
+-  Several logic bugs (for example: Deduction failure, bet `input()` prompt appeared before the pulls check,  )
+-  Return the wrong kind of value inside of `gambling()` function
+-  Inconsistent variables usage, causing `NameError`
+-  chance `random()` (random-generated decimal numbers from 0 to 1) was recalculated before the loop, causing it to remain in program without generating again for each loop
+-  `int(input())` was left unguarded, meaning that if the user types anything other than a number (zero or negative numbers, n <= 0), the program will crash with a ValueError
+-  Totally unreadable
 """
