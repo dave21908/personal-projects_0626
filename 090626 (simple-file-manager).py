@@ -77,6 +77,7 @@ def quiting(): # Quitting the program
    print("\nThank you for using the file manager. Goodbye!")
    exit()
 
+# =-=-= Main Program =-=-=
 print(f">=<>=<>=<>=< FILE MANAGER <=<>=<>=<>=<")
 COMMANDS = {
    ("r", "read", "1"): reading,

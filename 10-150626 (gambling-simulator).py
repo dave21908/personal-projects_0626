@@ -20,7 +20,8 @@ def gambling(money, bet, bonus_used, multiplier, chance):
       else:
          print(f"\nSorry, son, better luck next time.\nYou have ${money} left.")
    return money, bonus_used
-      
+
+# =-=-= Main Program =-=-=     
 print("\n>=<>=<>=<>=< GAMBLING SIMULATOR >=<>=<>=<>=<")
 start = input("Do you want to gamble, son? (yes/no)\n>> ")
 
@@ -107,7 +108,7 @@ else:
    exit()
    
 """
-(Reflection 11-15/06/26) What went wrong during the process?
+(Reflection 10-15/06/26) What went wrong during the process?
 -  Several logic bugs (for example: Deduction failure, bet `input()` prompt appeared before the pulls check,  )
 -  Return the wrong kind of value inside of `gambling()` function
 -  Inconsistent variables usage, causing `NameError`

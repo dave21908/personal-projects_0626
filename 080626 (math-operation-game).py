@@ -8,6 +8,7 @@ def check_answer(guess, result): # Checking if the user's answer is correct or n
       print(f"\nIncorrect! The answer is {result}")
       return False
 
+# =-=-= Main Program =-=-=
 print(f">=<>=<>=<>=< OPERATION GAME >=<>=<>=<>=<")
 game_start = input("Type 'start' to play the game!\n>> ").lower()
 
