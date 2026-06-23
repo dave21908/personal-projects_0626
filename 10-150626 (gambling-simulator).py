@@ -30,6 +30,7 @@ if start not in ["yes", "y"]:
    exit()
 
 else:
+   # Initializing variables and shop items
    bonus_used = False
    money = 100
    total_bets = 0
@@ -107,12 +108,3 @@ else:
    print(f"You walked away with ${money} after {total_bets} bets.")
    exit()
    
-"""
-(Reflection 10-15/06/26) What went wrong during the process?
--  Several logic bugs (for example: Deduction failure, bet `input()` prompt appeared before the pulls check,  )
--  Return the wrong kind of value inside of `gambling()` function
--  Inconsistent variables usage, causing `NameError`
--  chance `random()` (random-generated decimal numbers from 0 to 1) was recalculated before the loop, causing it to remain in program without generating again for each loop
--  `int(input())` was left unguarded, meaning that if the user types anything other than a number (zero or negative numbers, n <= 0), the program will crash with a ValueError
--  Totally unreadable
-"""

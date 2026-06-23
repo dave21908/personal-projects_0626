@@ -54,6 +54,7 @@ def creating(f_name): # Creating a new file
    if validate(f_name, must_exist=False):
       with open(f_name, "x") as file:
          pass
+      print(f"{f_name} has been created successfully!")
 
 def deleting(f_name): # Deleting a file
    if not validate(f_name, must_exist=True):
@@ -121,12 +122,3 @@ while True:
          print("\nNothing to select. Try using the available commands!")
       else:
          print("\nInvalid input. Try using the available commands!")
-
-"""
-(Reflection 09/06/26) What went wrong during the process?
--  Forgot to modify the functions that handle the files themselves
--  Error in handling file (such as trying to read a non-existent file, or trying to create a file that already exists)
--  Repeated validation patterns for each file-handling functions
--  Unnecessary `f-strings` placement
--  Almost unreadable
-"""

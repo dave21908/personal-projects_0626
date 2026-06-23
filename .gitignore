@@ -5,6 +5,7 @@ settings.json
 # Ignore other code-unrelated files
 coolnames.txt
 work.txt
+reflections.txt
 
 # Ignore python test files
 test-only.py

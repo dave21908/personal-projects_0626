@@ -1,8 +1,8 @@
-def quiting():
+def quiting(): # Exits the program
    print(f"Your total orders: {order}\nYour total cost: ${total_spent}")
    exit()
 
-def browsing():
+def browsing(): # Browse the available menu and commands for the user to type, based on the items
    print("\n=-=-=-=[ MENU ]=-=-=-=")
    for key, item in menu.items():
       print(f"{key}: {item['name']} (${item['price']})")
@@ -10,7 +10,7 @@ def browsing():
    for key, command in commands.items():
       print(f"{key}: {command['name']}")
 
-def ordering(serve, money, order, total_spent):
+def ordering(serve, money, order, total_spent): # Function specifically for user input to order food
    if serve not in menu:
       print(f"\nSorry, we don't have {serve} on the menu.")
       return money, order, total_spent
@@ -25,13 +25,15 @@ def ordering(serve, money, order, total_spent):
       print(f"\nYour order of {item['name']} costs ${item['price']}.")
    return money, order, total_spent
 
-def find_by_name(user_input, dictionary):
+def find_by_name(user_input, dictionary): 
+   # Searches the user's input by dictionary name, allowing the user to either type the key or the corresponding name, which will resolve to the same key
+   # For example: the user type either '1' or 'water' or 'Water' and it resolves to the same key '1' before hitting the existing logic
    for key, item in dictionary.items():
       if user_input.lower() == item["name"].lower():
          return key
    return None
 
-# Variables and Tuples
+# Initializing variables and dictionaries
 money = 100
 order = 0
 total_spent = 0
@@ -56,7 +58,7 @@ print(">=<>=<>=<>=< FAST FOOD EXPRESS >=<>=<>=<>=<")
 serve = input("Welcome! What would you like to order?\n(Type `B` to browse menu and commands)\n>> ").strip()
 
 while True:
-   if serve not in menu and serve not in commands:
+   if serve not in menu and serve not in commands: # Checking if `serve` input matches with the menu/commands dictionary
       matched_key = find_by_name(serve, menu) or find_by_name(serve, commands)
       if matched_key:
          serve = matched_key
@@ -76,10 +78,3 @@ while True:
       money, order, total_spent = ordering(serve, money, order, total_spent)
 
    serve = input(f"\nYour money: ${money}\nAnything else you would like to order?\n>> ").strip()
-
-   
-
-"""
-Reflection (18-19/06/2026) What went wrong during the process?
-- 
-"""

@@ -1,6 +1,6 @@
 import random
 
-def check_answer(guess, result): # Checking if the user's answer is correct or not
+def check_answer(guess, result): # Checking whether the user has answered correct or not
    if guess == result:
       print(f"\nCorrect!")
       return True
@@ -83,12 +83,3 @@ else:
          correct = 0
          continue
 
-"""
-(Reflection 08/06/26) What went wrong during the process?
--  Missplaced function (placing `check_answer()` inside of loop)
--  Putting two random generated numbers outside the `for` loop, this makes numbers never change and become repetitive
--  Inconsistent variable naming (for example: `guess_num` and `guess`)
--  Lack of input validation for difficulty selection
--  Incorrect handling of division operation, leading to nonsensical fractions and decimal numbers
--  Mostly unreadable
-"""
